@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX User Authentication</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { display: block; margin: 10px auto; padding: 8px; }
+        #userList { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>Sign Up</h2>
+    <input type="text" id="signupUsername" placeholder="Username">
+    <input type="password" id="signupPassword" placeholder="Password">
+    <button onclick="signUp()">Sign Up</button>
+
+    <h2>Sign In</h2>
+    <input type="text" id="signinUsername" placeholder="Username">
+    <input type="password" id="signinPassword" placeholder="Password">
+    <button onclick="signIn()">Sign In</button>
+
+    <h3>Registered Users:</h3>
+    <ul id="userList"></ul>
+
+    <script>
+        const API_URL = "https://67a4fb0dc0ac39787a1d1ed8.mockapi.io/users"; // Replace with your MockAPI URL
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchUsers();
+        });
+
+        function sendAJAX(method, url, data, callback) {
+            let xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200 || xhr.status === 201) {
+                        callback(JSON.parse(xhr.responseText));
+                    } else {
+                        alert("Error: " + xhr.responseText);
+                    }
+                }
+            };
+
+            xhr.send(data ? JSON.stringify(data) : null);
+        }
+
+        function signUp() {
+            let username = document.getElementById("signupUsername").value.trim();
+            let password = document.getElementById("signupPassword").value.trim();
+
+            if (!username || !password) {
+                alert("Please enter both username and password.");
+                return;
+            }
+
+            sendAJAX("POST", API_URL, { username, password }, function (response) {
+                let users = JSON.parse(localStorage.getItem("users")) || [];
+                users.push(response);
+                localStorage.setItem("users", JSON.stringify(users));
+                alert("User registered successfully!");
+                fetchUsers();
+            });
+        }
+
+        function signIn() {
+            let username = document.getElementById("signinUsername").value.trim();
+            let password = document.getElementById("signinPassword").value.trim();
+
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            let user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                alert("Login successful!");
+            } else {
+                alert("Invalid Username or Password.");
+            }
+        }
+
+        function fetchUsers() {
+            sendAJAX("GET", API_URL, null, function (users) {
+                localStorage.setItem("users", JSON.stringify(users));
+                document.getElementById("userList").innerHTML =
+                    users.map(user => `<li>${user.username}</li>`).join("");
+            });
+        }
+    </script>
+
+</body>
+</html>
