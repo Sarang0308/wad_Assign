@@ -1,0 +1,44 @@
+[
+  {
+    "name": "SARANG",
+    "rollno": "33374",
+    "department": "IT",
+    "division": "11",
+    "year": "3"
+  },
+  {
+    "name": "Rajdeep",
+    "rollno": "33379",
+    "department": "IT",
+    "division": "11",
+    "year": "3"
+  },
+  {
+    "name": "Saurabh",
+    "rollno": "33372",
+    "department": "IT",
+    "division": "11",
+    "year": "3"
+  },
+  {
+    "name": "abc",
+    "rollno": "123",
+    "department": "it",
+    "division": "11",
+    "year": "3"
+  },
+  {
+    "name": "Sairaj",
+    "rollno": "33113",
+    "department": "IT",
+    "division": "9",
+    "year": "3"
+  },
+  {
+    "name": "Parth",
+    "rollno": "33115",
+    "department": "IT",
+    "division": "9",
+    "year": "3"
+  }
+]

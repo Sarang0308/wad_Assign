@@ -1,0 +1,35 @@
+<div class="container">
+  <!-- Navigation Bar -->
+  <nav>
+    <a routerLink="/login" routerLinkActive="active">Login</a> |
+    <a routerLink="/register" routerLinkActive="active">Register</a> |
+    <a routerLink="/profile" routerLinkActive="active">Profile</a>
+  </nav>
+
+  <!-- Routed Content -->
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Styling for Active Links -->
+<style>
+  .active {
+    font-weight: bold;
+    color: blue;
+  }
+  .container {
+    padding: 20px;
+  }
+  nav {
+    margin-bottom: 20px;
+  }
+  nav a {
+    text-decoration: none;
+    padding: 10px;
+    margin-right: 10px;
+    color: #000;
+  }
+  nav a:hover {
+    background-color: lightgray;
+    border-radius: 5px;
+  }
+</style>
